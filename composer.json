@@ -1,0 +1,59 @@
+{
+    "name": "sugrob/husky",
+    "description": "onPHP framework based content management library",
+    "keywords": ["framework"],
+    "homepage": "https://github.com/sugrob/husky",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors" : [
+      {
+        "name": "Dmitriy Snezhinskiy",
+        "email" : "sugrob2008@gmail.com"
+      },
+      {
+        "name": "Sergey Deryabin"
+      }
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+      {
+        "type": "git",
+        "url": "https://github.com/onPHP/onphp-framework"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/sugrob/onphp-toolkit"
+      },
+      {
+        "type": "git",
+        "url": "https://github.com/sugrob/onphp-acl"
+      }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "twbs/bootstrap": "4.4.1",
+        "onphp/onphp": "dev-master",
+        "sugrob/onphp-toolkit": "dev-master",
+        "sugrob/onphp-acl": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Husky\\": "src",
+            "OnPHP\\": "onphp-framework/src",
+            "sugrob\\OnPHP\\Toolkit\\": "onphp-toolkit/src",
+            "sugrob\\OnPHP\\Acl\\": "onphp-acl/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Husky\\Tests\\": "tests",
+            "OnPHP\\Tests\\": "onphp-framework/tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "onphp/onphp": "dev-master",
+        "sugrob/onphp-toolkit": "dev-master",
+        "sugrob/onphp-acl": "dev-master"
+    }
+}

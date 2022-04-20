@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration parent="{base}/form.xml">
+	<form>
+		<markup type="layout">
+			<legend>Город</legend>
+			<layout direction="column" wrap="wrap">
+				<layout direction="row" wrap="nowrap">
+					<element name="name" />
+				</layout>
+				<layout direction="row" wrap="nowrap">
+					<element name="capital" />
+					<element name="large" />
+				</layout>
+			</layout>
+		</markup>
+
+		<consistency>
+			<exceptions>
+				<exception name="TestRule" marker="TestRuleExceptionMessageMarker">При сохранении объекта получили ошиюку из DAO, например.</exception>
+			</exceptions>
+			<errors>
+				<error type="wrong" name="name">Поле "name" заполнено не верно.</error>
+				<error type="missing" name="name">Поле "name" не заполнено</error>
+				<error type="wrong" name="capital">Поле "capital" заполнено не верно.</error>
+				<error type="missing" name="capital">Поле "capital" не заполнено</error>
+				<error type="wrong" name="large">Поле "large" заполнено не верно.</error>
+				<error type="missing" name="large">Поле "large" не заполнено</error>
+			</errors>
+		</consistency>
+
+		<elements>
+			<element name="name" viewer="String">
+				<label>Название</label>
+				<help>Максимальная длина строки 50 символов</help>
+			</element>
+			<element name="capital" viewer="Checkbox">
+				<label>Столица</label>
+			</element>
+			<element name="large" viewer="Checkbox">
+				<label>Крупный</label>
+			</element>
+		</elements>
+	</form>
+	<controls>
+		<header></header>
+
+		<footer>
+			<control action="save">
+				<event name="form.save" />
+				<renderer call="form.controls.formButtonRenderer" class="save" />
+				<label>Сохранить</label>
+			</control>
+			<control action="saveAndExit">
+				<event name="form.saveAndExit" />
+				<renderer call="form.controls.formButtonRenderer" class="saveAndExit" />
+				<label>Сохранить и выйти</label>
+			</control>
+			<control action="list">
+				<event name="form.exit" />
+				<renderer call="form.controls.formButtonRenderer" class="exit" />
+				<label>Выйти</label>
+			</control>
+		</footer>
+	</controls>
+</configuration>
