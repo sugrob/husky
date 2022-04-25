@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+	<template path="{user}/base.tpl.html" />
+
+	<handlers>
+		<chain event="form.restoreEditState">
+			<handler name="ListHideHandler"/>
+			<handler name="FormReloadHandler" stateless="true"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="form.restoreCreateState">
+			<handler name="ListHideHandler"/>
+			<handler name="FormCreateHandler" stateless="true"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="form.restoreCopyState">
+			<handler name="ListHideHandler"/>
+			<handler name="FormCopyHandler" stateless="true"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="form.save">
+			<handler name="FormSaveHandler"/>
+		</chain>
+		<chain event="form.exit">
+			<handler name="ListReloadHandler"/>
+			<handler name="FormHideHandler"/>
+			<handler name="ListShowHandler"/>
+		</chain>
+		<chain event="form.saveAndExit">
+			<handler name="FormSaveHandler"/>
+			<handler name="ListReloadHandler"/>
+			<handler name="FormHideHandler"/>
+			<handler name="ListShowHandler"/>
+		</chain>
+	</handlers>
+
+	<markup type="layout" />
+
+	<form>
+		<elementTypes>
+			<type name="Common" class="\Husky\Configuration\Component\WebForm\Element\ElementCommon" default="true" />
+			<type name="String" class="\Husky\Configuration\Component\WebForm\Element\ElementString" />
+			<type name="Integer" class="\Husky\Configuration\Component\WebForm\Element\ElementInteger" />
+			<type name="Float" class="\Husky\Configuration\Component\WebForm\Element\ElementFloat" />
+			<type name="Checkbox" class="\Husky\Configuration\Component\WebForm\Element\ElementCheckbox" />
+		</elementTypes>
+		<consistency>
+			<exceptions/>
+			<errors/>
+		</consistency>
+	</form>
+	<controls>
+		<!-- no toolbar -->
+		<header></header>
+		<footer>
+			<control action="save">
+				<event name="form.save" />
+				<renderer call="form.controls.formButtonRenderer" class="save" />
+				<label>Сохранить</label>
+			</control>
+			<control action="saveAndExit">
+				<event name="form.saveAndExit" />
+				<renderer call="form.controls.formButtonRenderer" class="saveAndExit" />
+				<label>Сохранить и выйти</label>
+			</control>
+			<control action="list">
+				<event name="form.exit" />
+				<renderer call="form.controls.formButtonRenderer" class="exit" />
+				<label>Выйти</label>
+			</control>
+			<control action="drop">
+				<event name="form.drop" />
+				<renderer call="form.controls.formButtonRenderer" class="drop" />
+				<label>Удалить</label>
+			</control>
+		</footer>
+	</controls>
+</configuration>

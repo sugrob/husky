@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+	<template path="{user}/base.tpl.html" />
+
+	<handlers>
+		<chain event="list.restoreState">
+			<handler name="FormHideHandler"/>
+			<handler name="ListReloadHandler" stateless="true"/>
+			<handler name="ListShowHandler"/>
+		</chain>
+		<chain event="list.list">
+			<handler name="FormHideHandler"/>
+			<handler name="ListReloadHandler"/>
+			<handler name="ListShowHandler"/>
+		</chain>
+		<chain event="list.add">
+			<handler name="FormCreateHandler"/>
+			<handler name="ListHideHandler"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="list.filterToggle">
+			<handler name="ListFilterToggleHandler"/>
+		</chain>
+		<chain event="list.dropItems">
+<!--			<handler name="ListDropItemsHandler"/>-->
+		</chain>
+		<chain event="list.showSettings">
+<!--			<handler name="ListShowSettingsHandler"/>-->
+		</chain>
+
+		<chain event="list.edit">
+			<handler name="FormReloadHandler"/>
+			<handler name="ListHideHandler"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="list.copy">
+			<handler name="FormCopyHandler"/>
+			<handler name="ListHideHandler"/>
+			<handler name="FormShowHandler"/>
+		</chain>
+		<chain event="list.move">
+			<handler name="ListMoveItemHandler"/>
+		</chain>
+		<chain event="list.drop">
+			<handler name="ListDropItemHandler"/>
+		</chain>
+	</handlers>
+
+	<columnTypes>
+		<type name="Common" class="\Husky\Configuration\View\ListView\Column\ColumnCommon" default="true" />
+	</columnTypes>
+
+	<filter>
+		<handlers>
+			<chain event="filter.search">
+				<handler name="FilterUpdateStateHandler"/>
+				<handler name="ListReloadHandler"/>
+			</chain>
+			<chain event="filter.reset">
+				<handler name="FilterResetHandler"/>
+				<handler name="FilterUpdateStateHandler"/>
+				<handler name="ListReloadHandler"/>
+			</chain>
+		</handlers>
+
+		<form>
+			<markup type="layout" />
+
+			<elementTypes>
+				<type name="Common" class="\Husky\Configuration\Component\WebForm\Element\ElementCommon" default="true" />
+				<type name="String" class="\Husky\Configuration\Component\WebForm\Element\ElementString" />
+				<type name="Integer" class="\Husky\Configuration\Component\WebForm\Element\ElementInteger" />
+				<type name="Float" class="\Husky\Configuration\Component\WebForm\Element\ElementFloat" />
+				<type name="Checkbox" class="\Husky\Configuration\Component\WebForm\Element\ElementCheckbox" />
+				<type name="SearchString" class="\Husky\Configuration\Component\WebForm\Element\ElementSearchString" />
+				<type name="SearchUnaryLogic" class="\Husky\Configuration\Component\WebForm\Element\ElementSearchUnaryLogic" />
+			</elementTypes>
+		</form>
+
+		<controls>
+			<header></header>
+
+			<footer>
+				<control action="search">
+					<event name="filter.search" />
+					<renderer call="form.controls.formButtonRenderer" />
+					<label>Найти</label>
+				</control>
+				<control action="resetFilter">
+					<event name="filter.reset" />
+					<renderer call="form.controls.formButtonRenderer" />
+					<label>Сбросить</label>
+				</control>
+			</footer>
+		</controls>
+
+		<conditions />
+	</filter>
+
+	<controls>
+		<toolbar>
+			<control action="filter">
+				<event name="list.filterToggle" />
+				<renderer call="list.controls.toolbar.filterControlRenderer" class="filter" appear="left"/>
+				<label>Фильтр</label>
+			</control>
+			<control action="add">
+				<event name="list.add" />
+				<renderer call="list.controls.toolbar.addControlRenderer" class="add" appear="left"/>
+				<label>Добавить</label>
+			</control>
+			<control action="dropItems">
+				<event name="list.dropItems" />
+				<renderer call="list.controls.toolbar.dropControlRenderer" class="drop-list" appear="left"/>
+				<label>Удалить отмеченные</label>
+			</control>
+			<control action="settings">
+				<event name="list.showSettings" />
+				<renderer call="list.controls.toolbar.settingsControlRenderer" class="settings" appear="right"/>
+				<label>&#x25bc;</label>
+			</control>
+		</toolbar>
+		<row>
+			<control action="move">
+				<event name="list.move" />
+				<renderer call="list.controls.row.moveAnchorRenderer" appear="left" />
+			</control>
+			<control action="edit">
+				<event name="list.edit" />
+				<renderer call="list.controls.row.editButtonRenderer" appear="right" class="edit" />
+			</control>
+			<control action="copy">
+				<event name="list.copy" />
+				<renderer call="list.controls.row.copyButtonRenderer" appear="right" class="copy" />
+			</control>
+			<control action="drop">
+				<event name="list.drop" />
+				<renderer call="list.controls.row.dropButtonRenderer" appear="right" class="drop" />
+			</control>
+		</row>
+		<footer>
+			<control action="list">
+				<event name="list.list" />
+				<renderer call="list.controls.footer.paginatorControlRenderer" class="paginator" appear="left">
+					<backButtonLabel>&#x276E;</backButtonLabel>
+					<forwardButtonLabel>&#x276F;</forwardButtonLabel>
+					<maxNumberOfPages>5</maxNumberOfPages>
+					<limit>25</limit>
+					<limits>10,25,50,100</limits>
+					<limitPickerLabel>Строк на странице:</limitPickerLabel>
+					<infoTemplate>{start}–{end} из {count}</infoTemplate>
+				</renderer>
+				<label></label>
+			</control>
+		</footer>
+	</controls>
+</configuration>

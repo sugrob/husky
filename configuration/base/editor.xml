@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+	<views>
+		<view name="list" class="\Husky\UI\ListJsonView" >
+			<include
+				configuration="\Husky\Configuration\View\ListView\ListConfiguration"
+				path="{user}/{subject}/list.xml"
+			/>
+		</view>
+		<view name="form" class="\Husky\UI\FormJsonView" >
+			<include
+				configuration="\Husky\Configuration\View\FormView\FormConfiguration"
+				path="{user}/{subject}/form.xml"
+			/>
+		</view>
+		<view name="json" class="\Husky\UI\PlainJsonView" />
+	</views>
+
+	<actions>
+		<action name="list" view="list" aclRightId="" default="true">
+			<commands>
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="move" view="list" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\MoveCommand" />
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="listSave" view="list" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\SavePropertyCommand" />
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="edit" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\ExportTempUploadedFilesCommand" />
+				<command class="\Husky\Command\EditCommand" />
+			</commands>
+		</action>
+		<action name="copy" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\CopyCommand" />
+			</commands>
+		</action>
+		<action name="save" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\SaveCommand" />
+			</commands>
+		</action>
+		<action name="saveAndExit" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\SaveCommand" />
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="add" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\AddCommand" />
+				<!--command class="\Husky\Command\ImportTempUploadedFilesCommand" /-->
+			</commands>
+		</action>
+		<action name="dropOnly" view="form" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\DropCommand" />
+			</commands>
+		</action>
+		<action name="drop" view="list" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\DropCommand" />
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="dropList" view="list" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\DropListCommand" />
+				<command class="\Husky\Command\ListCommand" />
+			</commands>
+		</action>
+		<action name="uploadFile" view="json" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\UploadFileCommand" />
+			</commands>
+		</action>
+		<action name="dropUploadedFile" view="json" aclRightId="">
+			<commands>
+				<command class="\Husky\Command\DropUploadedFileCommand" />
+			</commands>
+		</action>
+	</actions>
+
+	<resources>
+		<css src="jquery-ui.min.css"/>
+		<css src="common.css"/>
+		<css src="form.css"/>
+		<css src="list.css"/>
+
+		<!-- External libs -->
+		<script src="jquery.js" />
+		<script src="jquery-ui.min.js" />
+
+		<!-- Internal components -->
+		<script src="editor.js" />
+
+		<script src="form.js" />
+		<script src="formObserver.js" />
+		<script src="formFieldViewer.js" />
+		<script src="formToolbarControl.js" />
+		<script src="filterFieldViewer.js" />
+
+		<script src="list.js" />
+		<script src="listHeader.js" />
+		<script src="listFilter.js" />
+		<script src="listHeaderCell.js" />
+		<script src="listFooter.js" />
+		<script src="listGroupRow.js" />
+		<script src="listRow.js" />
+		<script src="listCell.js" />
+		<script src="listCellViewer.js" />
+		<script src="listRowControl.js" />
+		<script src="listRowControl.js" />
+		<script src="listToolbarControl.js" />
+	</resources>
+</configuration>
