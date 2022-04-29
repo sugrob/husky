@@ -3,6 +3,7 @@
 namespace Husky\Flow;
 
 use Husky\Classes\Business\Admin;
+use OnPHP\Core\Exception\BaseException;
 use OnPHP\Core\Exception\WrongArgumentException;
 use OnPHP\Core\Form\Filter;
 use OnPHP\Core\Form\Form;
@@ -13,6 +14,7 @@ use OnPHP\Main\Flow\HttpRequest;
 use OnPHP\Main\Flow\Model;
 use OnPHP\Main\Flow\ModelAndView;
 use OnPHP\Main\Net\HttpUrl;
+use OnPHP\Main\UI\View\RedirectView;
 use PHPUnit\Util\Exception;
 use sugrob\OnPHP\Acl\Auth\AuthManager;
 use sugrob\OnPHP\Acl\Base\IAclUser;
@@ -71,7 +73,6 @@ class AuthController implements Controller
 			)->
 			addRule('invalidPassword', Expression::isTrue(true))->
 			addRule('otherError', Expression::isTrue(true));
-
 	}
 
 	/**
@@ -103,7 +104,7 @@ class AuthController implements Controller
 			case self::LOGIN_ACTION:
 				{
 					if ($authManager->isAuth()) {
-						//return $mav->setView(RedirectView::create(ADMIN_URL.'index.php'));
+						return $mav->setView($this->getSuccessRedirectView());
 					}
 
 					if (!$form->getErrors()) {
@@ -114,7 +115,7 @@ class AuthController implements Controller
 									$form->getValue('adminPassword')
 								)
 							) {
-								return $mav->setView(RedirectView::create(APP_URL . 'index.php'));
+								return $mav->setView($this->getSuccessRedirectView());
 							}
 						} catch (InvalidPasswordException $e) {
 							$form->markWrong("invalidPassword");
@@ -123,6 +124,7 @@ class AuthController implements Controller
 						} catch (UserNotFoundException $e) {
 						} catch (UserNotActivatedException $e) {
 						} catch (UserRemovedException $e) {
+						} catch (BaseException $e) {
 							$form->markWrong("otherError");
 						}
 					}
@@ -135,5 +137,10 @@ class AuthController implements Controller
 		$mav->getModel()->set('form', $form);
 
 		return $mav->setView('auth');
+	}
+
+	protected function getSuccessRedirectView()
+	{
+		return RedirectView::create(HUSKY_APP_URL);
 	}
 }
